@@ -1,19 +1,19 @@
 const beneficios = [
   {
-    titulo: "Eficiencia que Fideliza",
-    desc: "Resultados globales en menos tiempo. La solución perfecta para el alumno con agenda ocupada.",
+    titulo: "Alumnos que duran más de 3 meses",
+    desc: "Rutinas que evolucionan semana a semana. Sin monotonía — y sin perder el contrato.",
   },
   {
-    titulo: "Versatilidad Profesional",
-    desc: "Un solo sistema para principiantes y atletas avanzados — simplificando tu prescripción.",
+    titulo: "Un sistema para cualquier alumno",
+    desc: "Del principiante al atleta avanzado. Una prescripción, múltiples adaptaciones. Menos tiempo preparando, más tiempo entrenando.",
   },
   {
-    titulo: "Resultados Probados",
-    desc: "Eficaz para hipertrofia, pérdida de grasa y fuerza. Basado en evidencia científica.",
+    titulo: "Hipertrofia, fuerza y pérdida de grasa en el mismo protocolo",
+    desc: "El Fullbody trabaja todos los objetivos en cada sesión. Base científica real, no intuición.",
   },
   {
-    titulo: "Alta Retención",
-    desc: "El antídoto contra la monotonía. El método que tus alumnos pueden sostener de por vida.",
+    titulo: "El método que tus alumnos van a querer seguir haciendo",
+    desc: "No es una rutina más. Es un sistema que se adapta — y que ellos mismos piden repetir.",
   },
 ];
 
@@ -33,7 +33,9 @@ export default function PorQueFunciona() {
             marginBottom: "3rem",
           }}
         >
-          Por qué el Sistema Fullbody funciona
+          Alumnos que se quedan.{" "}
+          <span style={{ color: "var(--orange)" }}>Resultados que se ven.</span>{" "}
+          Un solo sistema.
         </h2>
 
         <div

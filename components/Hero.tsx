@@ -150,7 +150,7 @@ export default function Hero() {
           }}
         >
           <span>🛡️</span>
-          <span>Garantía {String(7)} días — Reembolso completo, sin preguntas</span>
+          <span>Garantía {GARANTIA_DIAS} días — Reembolso completo, sin preguntas</span>
         </div>
 
         {/* Trust badges */}
