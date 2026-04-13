@@ -44,7 +44,8 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable}`}
       style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}
     >
-      <head>
+      <body>
+        {children}
         {/* Meta Pixel */}
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
@@ -65,8 +66,7 @@ export default function RootLayout({
             src="https://www.facebook.com/tr?id=1178462170941397&ev=PageView&noscript=1"
           />
         </noscript>
-      </head>
-      <body>{children}</body>
+      </body>
     </html>
   );
 }
