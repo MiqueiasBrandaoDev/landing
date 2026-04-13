@@ -75,41 +75,6 @@ export default function Hero() {
           <strong>hoy</strong>.
         </p>
 
-        {/* Mockup visual do produto */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "0.75rem",
-            marginBottom: "2rem",
-            flexWrap: "wrap",
-          }}
-        >
-          {[
-            { emoji: "📄", label: "Guía PDF 50 págs" },
-            { emoji: "📊", label: "Plantillas editables" },
-            { emoji: "🎓", label: "Certificado 20h" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.4rem",
-                background: "var(--bg-card)",
-                border: "1px solid var(--border)",
-                borderRadius: 8,
-                padding: "0.5rem 0.9rem",
-                fontSize: "0.85rem",
-                color: "var(--text-muted)",
-              }}
-            >
-              <span>{item.emoji}</span>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-
         {/* Preço âncora */}
         <p style={{ marginBottom: "1.25rem", fontSize: "0.95rem" }}>
           <span
@@ -167,7 +132,6 @@ export default function Hero() {
           <span>⚡ Descarga inmediata</span>
           <span>📁 Acceso de por vida</span>
           <span>🔒 Pago 100% seguro</span>
-          <span>✅ +{ALUNOS} entrenadores</span>
         </div>
       </div>
     </section>
