@@ -7,7 +7,10 @@ interface CTAButtonProps {
 }
 
 function handleCTAClick() {
-  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+  if (typeof window === "undefined") return
+
+  // GA4
+  if (typeof (window as any).gtag === "function") {
     ;(window as any).gtag("event", "begin_checkout", {
       currency: "COP",
       value: 39000,
@@ -20,6 +23,17 @@ function handleCTAClick() {
           quantity: 1,
         },
       ],
+    })
+  }
+
+  // Meta Pixel
+  if (typeof (window as any).fbq === "function") {
+    ;(window as any).fbq("track", "InitiateCheckout", {
+      value: 39000,
+      currency: "COP",
+      content_ids: ["sistema-fullbody"],
+      content_type: "product",
+      num_items: 1,
     })
   }
 }
