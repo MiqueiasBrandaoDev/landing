@@ -24,7 +24,7 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: "Sistema Fullbody — Protocolo Completo para Entrenadores",
   description:
-    "El método que usaron 40.000 entrenadores para dejar de perder alumnos. Guía PDF + Plantillas + Certificado. Descarga inmediata.",
+    "El método que usaron 40.000 entrenadores para dejar de perder alumnos. Guía PDF + Plantillas + Kit del Entrenador. Descarga inmediata.",
   openGraph: {
     title: "Sistema Fullbody — Protocolo Completo para Entrenadores",
     description:
