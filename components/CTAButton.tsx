@@ -39,7 +39,7 @@ function handleCTAClick() {
 }
 
 export default function CTAButton({
-  text = `Obtener el Sistema — ${PRECO_LANCAMENTO} →`,
+  text = `Obtener el Sistema · ${PRECO_LANCAMENTO} →`,
 }: CTAButtonProps) {
   return (
     <a

@@ -18,7 +18,7 @@ export default function PS() {
             color: "var(--text-muted)",
           }}
         >
-          <strong style={{ color: "var(--text)" }}>P.D.:</strong> Recuerda — el
+          <strong style={{ color: "var(--text)" }}>P.D.:</strong> Recuerda: el
           precio de lanzamiento es{" "}
           <strong style={{ color: "var(--orange)" }}>{PRECO_LANCAMENTO}</strong>{" "}
           y la garantía de {GARANTIA_DIAS} días significa{" "}

@@ -25,7 +25,7 @@ export default function Garantia() {
               marginBottom: "1rem",
             }}
           >
-            {GARANTIA_DIAS} Días de Garantía — Sin Preguntas
+            {GARANTIA_DIAS} Días de Garantía. Sin Preguntas.
           </h2>
           <p
             style={{

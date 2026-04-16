@@ -92,7 +92,7 @@ export default function Credibilidade() {
           </p>
           <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.7 }}>
             El método ya transformó {ALUNOS} carreras en Brasil.
-            Ahora llega al mercado hispanohablante — con precio de lanzamiento
+            Ahora llega al mercado hispanohablante, con precio de lanzamiento
             y garantía total de 7 días.
           </p>
         </div>

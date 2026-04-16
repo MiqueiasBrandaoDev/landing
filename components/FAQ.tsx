@@ -7,23 +7,23 @@ const perguntas = [
   },
   {
     q: "¿Necesito experiencia previa?",
-    a: "No. El protocolo está diseñado para profesionales en cualquier etapa — desde recién graduados hasta entrenadores con años de experiencia.",
+    a: "No. El protocolo está diseñado para profesionales en cualquier etapa, desde recién graduados hasta entrenadores con años de experiencia.",
   },
   {
     q: "¿Cómo recibo el material?",
-    a: "Al confirmar tu compra, recibes acceso inmediato para descargar todos los archivos. Sin plataforma, sin contraseña — directo al dispositivo.",
+    a: "Al confirmar tu compra, recibes acceso inmediato para descargar todos los archivos. Sin plataforma, sin contraseña. Directo al dispositivo.",
   },
   {
     q: "¿El acceso es de por vida?",
     a: "Sí. Los archivos son tuyos para siempre, incluyendo actualizaciones futuras del material.",
   },
   {
-    q: "¿El sistema ofrece certificado?",
-    a: "Sí. Al completar el programa recibes un certificado de especialización de 20 horas, válido para horas complementarias y comprobación de especialización.",
+    q: "¿Qué es el Kit del Entrenador Profesional?",
+    a: "Son 3 fichas editables que usas directamente con tus clientes: una ficha de evaluación inicial, una ficha de seguimiento mensual del progreso, y un script de renovación con lo que decir cuando un alumno quiere dejar de entrenar. Más útil que cualquier certificado.",
   },
   {
     q: "¿Funciona para el mercado colombiano?",
-    a: "Sí. El sistema está basado en evidencia científica universal — ya lo usan entrenadores en toda Latinoamérica. El contenido está completamente en español.",
+    a: "Sí. El sistema está basado en evidencia científica universal. Ya lo usan entrenadores en toda Latinoamérica y el contenido está completamente en español.",
   },
 ];
 

@@ -13,7 +13,7 @@ export default function Footer() {
       <p style={{ marginBottom: "0.5rem" }}>
         <strong style={{ color: "var(--text)" }}>EDUCACIÓN FÍSICA DEL CERO</strong>
       </p>
-      <p>Sistema Fullbody — Protocolo Completo para Entrenadores</p>
+      <p>Sistema Fullbody · Protocolo Completo para Entrenadores</p>
       <p style={{ marginTop: "1rem" }}>
         © 2026 · Todos los derechos reservados
       </p>

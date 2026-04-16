@@ -52,7 +52,7 @@ export default function CTAFinal() {
             marginBottom: "2rem",
           }}
         >
-          Descarga el protocolo completo, las plantillas y el certificado —
+          Descarga el protocolo completo, las plantillas y el Kit del Entrenador —
           todo en minutos, directo en tu dispositivo.
         </p>
 
@@ -107,7 +107,7 @@ export default function CTAFinal() {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.25rem" }}>
-          <CTAButton text={`Obtener el Sistema — ${PRECO_LANCAMENTO} →`} />
+          <CTAButton text={`Obtener el Sistema · ${PRECO_LANCAMENTO} →`} />
         </div>
 
         {/* Garantia reforçada */}
@@ -118,7 +118,7 @@ export default function CTAFinal() {
             marginBottom: "1.25rem",
           }}
         >
-          🛡️ Garantía de {GARANTIA_DIAS} días — si no es para ti, reembolso completo sin preguntas.
+          🛡️ Garantía de {GARANTIA_DIAS} días. Si no es para ti, reembolso completo sin preguntas.
         </p>
 
         <div
@@ -133,7 +133,7 @@ export default function CTAFinal() {
         >
           <span>🔒 Pago 100% seguro</span>
           <span>⚡ Descarga inmediata</span>
-          <span>🎓 Certificado incluido</span>
+          <span>🛠️ Kit del Entrenador incluido</span>
           <span>📁 Acceso de por vida</span>
         </div>
       </div>

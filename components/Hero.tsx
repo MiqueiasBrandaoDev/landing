@@ -29,7 +29,7 @@ export default function Hero() {
       <div className="container" style={{ textAlign: "center" }}>
         {/* Label */}
         <p className="label" style={{ marginBottom: "1.25rem" }}>
-          Certificación Fullbody · +{ALUNOS} entrenadores
+          Sistema Fullbody · +{ALUNOS} entrenadores
         </p>
 
         {/* Headline — DOR primeiro (Kennedy + Kusmich message match) */}
@@ -71,7 +71,7 @@ export default function Hero() {
           }}
         >
           El <strong style={{ color: "var(--orange)" }}>Sistema Fullbody</strong>{" "}
-          resuelve exactamente eso — y puedes aplicarlo con tu próximo alumno,{" "}
+          resuelve exactamente eso. Puedes aplicarlo con tu próximo alumno{" "}
           <strong>hoy</strong>.
         </p>
 
@@ -96,7 +96,7 @@ export default function Hero() {
 
         {/* CTA com preço — Kennedy: CTA confirma a decisão */}
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-          <CTAButton text={`Quiero el Sistema — ${PRECO_LANCAMENTO} →`} />
+          <CTAButton text={`Quiero el Sistema · ${PRECO_LANCAMENTO} →`} />
         </div>
 
         {/* Garantia logo abaixo do CTA — ICE #1 */}
@@ -115,7 +115,7 @@ export default function Hero() {
           }}
         >
           <span>🛡️</span>
-          <span>Garantía 7 días — Reembolso completo, sin preguntas</span>
+          <span>Garantía 7 días · Reembolso completo, sin preguntas</span>
         </div>
 
         {/* Trust badges */}

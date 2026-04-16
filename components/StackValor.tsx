@@ -38,12 +38,12 @@ const itens = [
     destaque: false,
   },
   {
-    emoji: "🎓",
-    titulo: "Certificado de Especialización de 20 Horas",
-    desc: "Certificado emitido al completar el programa. Válido para horas complementarias y comprobación de especialización profesional.",
-    valor: null,
+    emoji: "🛠️",
+    titulo: "Kit del Entrenador Profesional",
+    desc: "3 fichas editables que usas CADA SEMANA con tus clientes: ficha de evaluación inicial, ficha de seguimiento mensual y script de renovación (qué decir cuando el alumno quiere irse).",
+    valor: "$18.000 COP",
     destaque: false,
-    badge: "RECONOCIDO INTERNACIONALMENTE",
+    badge: "MÁS VALORADO",
   },
 ];
 
@@ -80,7 +80,7 @@ export default function StackValor() {
           <span style={{ color: "var(--orange)" }}>Es un sistema que vas a usar.</span>
         </h2>
         <p style={{ color: "var(--text-muted)", marginBottom: "2.5rem", fontSize: "0.95rem" }}>
-          Acceso inmediato tras la compra — sin plataforma, sin contraseña.
+          Acceso inmediato tras la compra. Sin plataforma, sin contraseña.
         </p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "3rem" }}>

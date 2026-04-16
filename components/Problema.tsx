@@ -6,7 +6,7 @@ export default function Problema() {
     "Tus alumnos tienen agendas cada vez más apretadas",
     "No pueden ir al gimnasio 5 días a la semana",
     "La rutina A/B/C se vuelve monótona en 60 días",
-    "Sin resultados rápidos — se van antes de los 3 meses",
+    "Sin resultados rápidos, se van antes de los 3 meses",
     "Pierdes contratos que ya estaban cerrados",
   ]
 
@@ -83,7 +83,7 @@ export default function Problema() {
           }}
         >
           <p style={{ fontSize: "1rem", lineHeight: 1.6 }}>
-            El <strong>Sistema Fullbody</strong> resuelve exactamente eso — y puedes
+            El <strong>Sistema Fullbody</strong> resuelve exactamente eso. Puedes
             empezar a aplicarlo con tu próximo alumno,{" "}
             <strong style={{ color: "var(--orange)" }}>hoy</strong>.
           </p>
@@ -91,7 +91,7 @@ export default function Problema() {
 
         {/* CTA extra após problema — Kusmich: tráfego mobile não espera #6 */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.5rem" }}>
-          <CTAButton text={`Ver el Sistema Completo — ${PRECO_LANCAMENTO} →`} />
+          <CTAButton text={`Ver el Sistema Completo · ${PRECO_LANCAMENTO} →`} />
           <p style={{ color: "var(--text-muted)", fontSize: "0.78rem" }}>
             🛡️ Garantía 7 días · Descarga inmediata
           </p>

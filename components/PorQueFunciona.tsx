@@ -1,7 +1,7 @@
 const beneficios = [
   {
     titulo: "Alumnos que duran más de 3 meses",
-    desc: "Rutinas que evolucionan semana a semana. Sin monotonía — y sin perder el contrato.",
+    desc: "Rutinas que evolucionan semana a semana. Sin monotonía, sin perder el contrato.",
   },
   {
     titulo: "Un sistema para cualquier alumno",
@@ -13,7 +13,7 @@ const beneficios = [
   },
   {
     titulo: "El método que tus alumnos van a querer seguir haciendo",
-    desc: "No es una rutina más. Es un sistema que se adapta — y que ellos mismos piden repetir.",
+    desc: "No es una rutina más. Es un sistema que se adapta y que ellos mismos piden repetir.",
   },
 ];
 
