@@ -3,6 +3,7 @@ import Problema from "@/components/Problema"
 import PorQueFunciona from "@/components/PorQueFunciona"
 import StackValor from "@/components/StackValor"
 import Credibilidade from "@/components/Credibilidade"
+import Depoimentos from "@/components/Depoimentos"
 import Garantia from "@/components/Garantia"
 import FAQ from "@/components/FAQ"
 import CTAFinal from "@/components/CTAFinal"
@@ -16,8 +17,9 @@ export default function Home() {
       <Problema />
       <PorQueFunciona />
       <StackValor />
-      <Garantia />
       <Credibilidade />
+      <Depoimentos />
+      <Garantia />
       <FAQ />
       <CTAFinal />
       <PS />
