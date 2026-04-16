@@ -1,145 +1,262 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { Circle } from "lucide-react"
 import CTAButton from "./CTAButton"
 import CountdownTimer from "./CountdownTimer"
-import { PRECO_LANCAMENTO, PRECO_REGULAR, PRECO_USD, ALUNOS } from "@/lib/constants"
+import { PRECO_LANCAMENTO, PRECO_REGULAR, ALUNOS } from "@/lib/constants"
+import { cn } from "@/lib/utils"
+
+function ElegantShape({
+  className,
+  delay = 0,
+  width = 400,
+  height = 100,
+  rotate = 0,
+  gradient = "from-orange-500/[0.15]",
+}: {
+  className?: string
+  delay?: number
+  width?: number
+  height?: number
+  rotate?: number
+  gradient?: string
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -150, rotate: rotate - 15 }}
+      animate={{ opacity: 1, y: 0, rotate }}
+      transition={{
+        duration: 2.4,
+        delay,
+        ease: [0.23, 0.86, 0.39, 0.96],
+        opacity: { duration: 1.2 },
+      }}
+      className={cn("absolute", className)}
+    >
+      <motion.div
+        animate={{ y: [0, 15, 0] }}
+        transition={{
+          duration: 12,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "easeInOut",
+        }}
+        style={{ width, height }}
+        className="relative"
+      >
+        <div
+          className={cn(
+            "absolute inset-0 rounded-full",
+            "bg-gradient-to-r to-transparent",
+            gradient,
+            "backdrop-blur-[2px] border-2 border-white/[0.08]",
+            "shadow-[0_8px_32px_0_rgba(255,107,0,0.1)]",
+            "after:absolute after:inset-0 after:rounded-full",
+            "after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,107,0,0.15),transparent_70%)]"
+          )}
+        />
+      </motion.div>
+    </motion.div>
+  )
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      delay: 0.5 + i * 0.2,
+      ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number],
+    },
+  }),
+}
 
 export default function Hero() {
   return (
-    <section
-      className="section"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        paddingTop: "5rem",
-        paddingBottom: "5rem",
-      }}
-    >
-      {/* Glow */}
-      <div
-        className="glow"
-        style={{
-          width: 600,
-          height: 600,
-          background: "var(--orange-glow)",
-          top: "-15%",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      />
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/[0.03] via-transparent to-amber-500/[0.03] blur-3xl" />
 
-      <div className="container" style={{ textAlign: "center" }}>
-        {/* Label */}
-        <p className="label" style={{ marginBottom: "1.25rem" }}>
-          Sistema Fullbody · +{ALUNOS} entrenadores
-        </p>
+      {/* Animated shapes */}
+      <div className="absolute inset-0 overflow-hidden">
+        <ElegantShape
+          delay={0.3}
+          width={600}
+          height={140}
+          rotate={12}
+          gradient="from-orange-500/[0.12]"
+          className="left-[-10%] md:left-[-5%] top-[15%] md:top-[20%]"
+        />
+        <ElegantShape
+          delay={0.5}
+          width={500}
+          height={120}
+          rotate={-15}
+          gradient="from-amber-500/[0.12]"
+          className="right-[-5%] md:right-[0%] top-[70%] md:top-[75%]"
+        />
+        <ElegantShape
+          delay={0.4}
+          width={300}
+          height={80}
+          rotate={-8}
+          gradient="from-orange-600/[0.10]"
+          className="left-[5%] md:left-[10%] bottom-[5%] md:bottom-[10%]"
+        />
+        <ElegantShape
+          delay={0.6}
+          width={200}
+          height={60}
+          rotate={20}
+          gradient="from-yellow-500/[0.10]"
+          className="right-[15%] md:right-[20%] top-[10%] md:top-[15%]"
+        />
+        <ElegantShape
+          delay={0.7}
+          width={150}
+          height={40}
+          rotate={-25}
+          gradient="from-red-500/[0.08]"
+          className="left-[20%] md:left-[25%] top-[5%] md:top-[10%]"
+        />
+      </div>
 
-        {/* Headline — DOR primeiro (Kennedy + Kusmich message match) */}
-        <h1
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-3xl mx-auto text-center px-4 md:px-6">
+        {/* Badge */}
+        <motion.div
+          custom={0}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-8 md:mb-10"
           style={{
-            fontFamily: "var(--font-space), system-ui, sans-serif",
-            fontSize: "clamp(2rem, 5.5vw, 3.6rem)",
-            fontWeight: 700,
-            lineHeight: 1.1,
-            letterSpacing: "-0.02em",
-            marginBottom: "1.25rem",
+            background: "rgba(255,107,0,0.04)",
+            borderColor: "rgba(255,107,0,0.2)",
           }}
         >
-          ¿Tus alumnos se van{" "}
-          <span style={{ color: "var(--orange)" }}>antes de los 3 meses?</span>
-        </h1>
-
-        {/* Subheadline — credencial como prova, não como abertura */}
-        <p
-          style={{
-            fontSize: "clamp(1rem, 2.2vw, 1.2rem)",
-            color: "var(--text-muted)",
-            maxWidth: 580,
-            margin: "0 auto 0.75rem",
-            lineHeight: 1.7,
-          }}
-        >
-          No es falta de motivación de ellos. Es la rutina A/B/C que se vuelve
-          monótona en 60 días.
-        </p>
-        <p
-          style={{
-            fontSize: "clamp(1rem, 2.2vw, 1.15rem)",
-            color: "var(--text)",
-            maxWidth: 560,
-            margin: "0 auto 2rem",
-            lineHeight: 1.6,
-            fontWeight: 500,
-          }}
-        >
-          El <strong style={{ color: "var(--orange)" }}>Sistema Fullbody</strong>{" "}
-          resuelve exactamente eso. Puedes aplicarlo con tu próximo alumno{" "}
-          <strong>hoy</strong>.
-        </p>
-
-        {/* Preço âncora */}
-        <p style={{ marginBottom: "1.25rem", fontSize: "0.95rem" }}>
+          <Circle className="h-2 w-2 fill-orange-500 text-orange-500" />
           <span
             style={{
-              textDecoration: "line-through",
+              fontSize: "0.78rem",
               color: "var(--text-muted)",
-              marginRight: "0.5rem",
+              letterSpacing: "0.05em",
             }}
           >
-            {PRECO_REGULAR}
+            +{ALUNOS} entrenadores ya lo usan
           </span>
-          <strong style={{ color: "var(--orange)", fontSize: "1.25rem" }}>
-            SOLO {PRECO_LANCAMENTO}
-          </strong>
-          <span style={{ color: "var(--text-muted)", marginLeft: "0.5rem", fontSize: "0.85rem" }}>
-            {PRECO_USD}
-          </span>
-        </p>
+        </motion.div>
 
-        {/* CTA com preço — Kennedy: CTA confirma a decisão */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-          <CTAButton text={`Quiero el Sistema · ${PRECO_LANCAMENTO} →`} />
-        </div>
+        {/* Headline */}
+        <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
+          <h1
+            style={{
+              fontFamily: "var(--font-space), system-ui, sans-serif",
+              fontWeight: 700,
+              lineHeight: 1.05,
+              letterSpacing: "-0.03em",
+              marginBottom: "1.5rem",
+            }}
+            className="text-4xl sm:text-5xl md:text-7xl"
+          >
+            <span
+              style={{
+                background: "linear-gradient(to bottom, #ffffff, rgba(255,255,255,0.8))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              ¿Tus alumnos se van
+            </span>
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(to right, #FF6B00, #ffffff90, #FF8C00)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              antes de 3 meses?
+            </span>
+          </h1>
+        </motion.div>
 
-        {/* Garantia logo abaixo do CTA — ICE #1 */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.4rem",
-            background: "rgba(255,107,0,0.06)",
-            border: "1px solid rgba(255,107,0,0.2)",
-            borderRadius: 6,
-            padding: "0.4rem 0.9rem",
-            fontSize: "0.82rem",
-            color: "var(--text-muted)",
-            marginBottom: "1.5rem",
-          }}
-        >
-          <span>🛡️</span>
-          <span>Garantía 7 días · Reembolso completo, sin preguntas</span>
-        </div>
+        {/* Subheadline — una sola línea */}
+        <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible">
+          <p
+            className="text-base sm:text-lg md:text-xl mx-auto px-4"
+            style={{
+              color: "var(--text-muted)",
+              maxWidth: 520,
+              lineHeight: 1.6,
+              marginBottom: "2rem",
+              fontWeight: 300,
+            }}
+          >
+            El sistema que resuelve eso existe. Y cuesta menos que una hora de
+            entrenamiento.
+          </p>
+        </motion.div>
 
-        {/* Countdown timer */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.25rem" }}>
-          <CountdownTimer />
-        </div>
+        {/* Price + CTA */}
+        <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
+          <p style={{ marginBottom: "1rem", fontSize: "0.95rem" }}>
+            <span
+              style={{
+                textDecoration: "line-through",
+                color: "var(--text-muted)",
+                marginRight: "0.5rem",
+              }}
+            >
+              {PRECO_REGULAR}
+            </span>
+            <strong style={{ color: "var(--orange)", fontSize: "1.3rem" }}>
+              {PRECO_LANCAMENTO}
+            </strong>
+          </p>
 
-        {/* Trust badges */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "1.25rem",
-            color: "var(--text-muted)",
-            fontSize: "0.82rem",
-          }}
-        >
-          <span>⚡ Descarga inmediata</span>
-          <span>📁 Acceso de por vida</span>
-          <span>🔒 Pago 100% seguro</span>
-        </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            <CTAButton text={`Quiero el Sistema · ${PRECO_LANCAMENTO} →`} />
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "0.75rem",
+            }}
+          >
+            <CountdownTimer />
+          </div>
+
+          <p
+            style={{
+              color: "var(--text-muted)",
+              fontSize: "0.78rem",
+              opacity: 0.7,
+            }}
+          >
+            Garantía 7 días · Descarga inmediata · Pago seguro
+          </p>
+        </motion.div>
       </div>
+
+      {/* Bottom gradient fade */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to top, var(--bg) 0%, transparent 30%, transparent 70%, var(--bg) 100%)",
+        }}
+      />
     </section>
   )
 }
