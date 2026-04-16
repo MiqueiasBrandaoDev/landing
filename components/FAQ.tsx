@@ -2,28 +2,16 @@
 
 const perguntas = [
   {
-    q: "¿Para quién es este sistema?",
-    a: "Para estudiantes de Educación Física y personal trainers que desean aplicar el método Fullbody con respaldo científico desde el primer día.",
+    q: "¿Cómo recibo el material?",
+    a: "Al confirmar tu compra, recibes acceso inmediato para descargar todos los archivos. Sin plataforma, sin contraseña. Directo al dispositivo.",
   },
   {
     q: "¿Necesito experiencia previa?",
     a: "No. El protocolo está diseñado para profesionales en cualquier etapa, desde recién graduados hasta entrenadores con años de experiencia.",
   },
   {
-    q: "¿Cómo recibo el material?",
-    a: "Al confirmar tu compra, recibes acceso inmediato para descargar todos los archivos. Sin plataforma, sin contraseña. Directo al dispositivo.",
-  },
-  {
-    q: "¿El acceso es de por vida?",
-    a: "Sí. Los archivos son tuyos para siempre, incluyendo actualizaciones futuras del material.",
-  },
-  {
-    q: "¿Qué es el Kit del Entrenador Profesional?",
-    a: "Son 3 fichas editables que usas directamente con tus clientes: una ficha de evaluación inicial, una ficha de seguimiento mensual del progreso, y un script de renovación con lo que decir cuando un alumno quiere dejar de entrenar. Más útil que cualquier certificado.",
-  },
-  {
-    q: "¿Funciona para el mercado colombiano?",
-    a: "Sí. El sistema está basado en evidencia científica universal. Ya lo usan entrenadores en toda Latinoamérica y el contenido está completamente en español.",
+    q: "¿Y si no me funciona?",
+    a: "Tienes 7 días de garantía total. Si no es para ti por cualquier razón, solicitas el reembolso y te devolvemos el 100% sin preguntas.",
   },
 ];
 

@@ -1,5 +1,6 @@
 import CTAButton from "./CTAButton"
-import { PRECO_LANCAMENTO, PRECO_REGULAR, PRECO_USD, OFERTA_VALIDA_ATE, GARANTIA_DIAS } from "@/lib/constants"
+import CountdownTimer from "./CountdownTimer"
+import { PRECO_LANCAMENTO, PRECO_REGULAR, PRECO_USD, GARANTIA_DIAS } from "@/lib/constants"
 
 export default function CTAFinal() {
   return (
@@ -56,24 +57,9 @@ export default function CTAFinal() {
           todo en minutos, directo en tu dispositivo.
         </p>
 
-        {/* Urgência real com data — Kennedy #8 */}
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            background: "rgba(255,107,0,0.1)",
-            border: "1px solid rgba(255,107,0,0.3)",
-            borderRadius: 6,
-            padding: "0.4rem 1rem",
-            fontSize: "0.82rem",
-            color: "var(--orange)",
-            fontWeight: 600,
-            marginBottom: "1.5rem",
-            letterSpacing: "0.03em",
-          }}
-        >
-          ⏳ Precio de lanzamiento válido hasta {OFERTA_VALIDA_ATE}
+        {/* Countdown timer ao vivo */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
+          <CountdownTimer />
         </div>
 
         {/* Preço */}

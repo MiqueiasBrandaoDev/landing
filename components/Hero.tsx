@@ -1,4 +1,5 @@
 import CTAButton from "./CTAButton"
+import CountdownTimer from "./CountdownTimer"
 import { PRECO_LANCAMENTO, PRECO_REGULAR, PRECO_USD, ALUNOS } from "@/lib/constants"
 
 export default function Hero() {
@@ -116,6 +117,11 @@ export default function Hero() {
         >
           <span>🛡️</span>
           <span>Garantía 7 días · Reembolso completo, sin preguntas</span>
+        </div>
+
+        {/* Countdown timer */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.25rem" }}>
+          <CountdownTimer />
         </div>
 
         {/* Trust badges */}

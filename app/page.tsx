@@ -16,9 +16,9 @@ export default function Home() {
       <Hero />
       <Problema />
       <PorQueFunciona />
+      <Depoimentos />
       <StackValor />
       <Credibilidade />
-      <Depoimentos />
       <Garantia />
       <FAQ />
       <CTAFinal />
