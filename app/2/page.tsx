@@ -202,18 +202,33 @@ export default function PageV2() {
             {[
               {
                 icon: "📄",
-                title: "Protocolo completo + plantillas editables",
-                desc: "Guía de 50 páginas + planillas Excel listas para entregar a tu alumno mañana.",
+                title: "Guía Completa del Sistema Fullbody",
+                desc: "Protocolo de 50 páginas con base científica. Aplicable desde el primer día.",
               },
               {
-                icon: "🔬",
-                title: "Base científica real, no intuición",
-                desc: "Schoenfeld, Grgic, Ralston — las referencias que respaldan cada decisión de prescripción.",
+                icon: "📊",
+                title: "Plantillas de Prescripción editables",
+                desc: "4 protocolos de 8 semanas en Excel. Principiante, intermedio, avanzado y pérdida de grasa.",
+              },
+              {
+                icon: "📘",
+                title: "Guía Científica de Hipertrofia",
+                desc: "Mecanismos, variables óptimas y protocolo completo. Referencias reales.",
+              },
+              {
+                icon: "📅",
+                title: "Protocolo de Periodización — 12 semanas",
+                desc: "Adaptación → Acumulación → Intensificación → Deload. Semana a semana.",
+              },
+              {
+                icon: "✅",
+                title: "Checklist de Evaluación del Alumno",
+                desc: "Evalúa antes de prescribir. Datos, movimiento y clasificación por nivel.",
               },
               {
                 icon: "🛠️",
-                title: "Kit del Entrenador con script de renovación",
-                desc: "Qué decir cuando el alumno quiere irse. 5 situaciones reales con respuestas probadas.",
+                title: "Kit del Entrenador Profesional",
+                desc: "3 fichas: evaluación inicial, seguimiento mensual y script de renovación.",
               },
             ].map((item, i) => (
               <div
@@ -253,10 +268,10 @@ export default function PageV2() {
             marginBottom: "2rem",
           }}>
             <p style={{ fontSize: "0.88rem", lineHeight: 1.6, fontStyle: "italic", color: "var(--text)", marginBottom: "0.5rem" }}>
-              "Material excelente, fácil de aprender, dinámico. Estoy encantada y agradecida por haber creado algo tan excepcional."
+              "¡Excelente! Lo compré y lo recomiendo sin dudar. Vale cada peso."
             </p>
             <p style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
-              — Personal Trainer · 🇧🇷 Brasil
+              — @rodrigueseduardo2 · 🇧🇷 Brasil
             </p>
           </div>
 
