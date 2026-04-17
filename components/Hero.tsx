@@ -200,8 +200,46 @@ export default function Hero() {
           </p>
         </motion.div>
 
+        {/* Product Mockup */}
+        <motion.div
+          custom={3}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+          style={{
+            position: "relative",
+            marginBottom: "2rem",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              width: "80%",
+              height: "80%",
+              top: "10%",
+              left: "10%",
+              background: "radial-gradient(circle, rgba(255,107,0,0.15) 0%, transparent 70%)",
+              filter: "blur(40px)",
+              pointerEvents: "none",
+            }}
+          />
+          <img
+            src="/mockup-produto.png"
+            alt="Sistema Fullbody — Guía completa, plantillas, Kit del Entrenador y más"
+            style={{
+              width: "100%",
+              maxWidth: 420,
+              height: "auto",
+              position: "relative",
+              zIndex: 1,
+            }}
+          />
+        </motion.div>
+
         {/* Price + CTA */}
-        <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
+        <motion.div custom={4} variants={fadeUp} initial="hidden" animate="visible">
           <p style={{ marginBottom: "1rem", fontSize: "0.95rem" }}>
             <span
               style={{
