@@ -589,6 +589,11 @@ h2.section-title {
   flex-wrap: wrap;
   gap: 14px;
   align-items: center;
+  overflow: hidden;
+}
+.solution-callout .cta-row .btn-primary {
+  white-space: normal !important;
+  word-break: break-word;
 }
 .solution-callout .cta-row .trust {
   font-family: var(--ff-mono);
@@ -1194,7 +1199,7 @@ footer .legal a:hover { color: var(--accent); }
   .price-new { font-size: clamp(28px, 7vw, 64px); }
   .cd-block { min-width: 44px; padding: 8px; }
   .cd-block .num { font-size: 18px; }
-  .v3-page .btn-primary { width: 100% !important; padding: 18px 20px !important; font-size: 14px !important; }
+  .v3-page .btn-primary { width: 100% !important; max-width: 100% !important; padding: 18px 16px !important; font-size: 13px !important; white-space: normal !important; word-break: break-word !important; text-align: center !important; box-sizing: border-box !important; }
   .benefit { padding: 28px 20px 32px; }
   .deliver { gap: 12px; }
   .deliver .num { font-size: clamp(28px, 7vw, 64px); }
