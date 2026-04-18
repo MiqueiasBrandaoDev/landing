@@ -38,7 +38,7 @@ export default function PageV3() {
   }, [])
 
   return (
-    <div data-accent="orange" data-density="compact">
+    <div className="v3-page" data-accent="orange" data-density="compact">
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -156,55 +156,39 @@ h2.section-title {
 }
 .paper .lede { color: var(--muted-dark); }
 
-/* ---------- Buttons ---------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 20px 28px;
-  font-family: var(--ff-sans);
-  font-size: 16px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  border-radius: var(--radius);
-  border: 1.5px solid transparent;
-  cursor: pointer;
-  transition: transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
-  line-height: 1;
-  white-space: nowrap;
+/* ---------- Buttons (scoped to override globals.css) ---------- */
+.v3-page .btn-primary {
+  background: var(--accent) !important;
+  color: var(--accent-ink) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 0 var(--accent) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  padding: 20px 28px !important;
+  font-family: var(--ff-sans) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  text-decoration: none !important;
+  border-radius: var(--radius) !important;
+  border: 1.5px solid var(--accent) !important;
+  cursor: pointer !important;
+  transition: transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  width: auto !important;
+  max-width: none !important;
 }
-.btn-primary {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent);
-  box-shadow: 0 0 0 0 var(--accent);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 20px 28px;
-  font-family: var(--ff-sans);
-  font-size: 16px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  border-radius: var(--radius);
-  border: 1.5px solid var(--accent);
-  cursor: pointer;
-  transition: transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
-  line-height: 1;
-  white-space: nowrap;
+.v3-page .btn-primary:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 0 var(--paper) !important;
+  background-color: var(--accent) !important;
 }
-.btn-primary:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 0 var(--paper);
-}
-.paper .btn-primary:hover {
-  box-shadow: 6px 6px 0 0 var(--ink);
+.v3-page .paper .btn-primary:hover {
+  box-shadow: 6px 6px 0 0 var(--ink) !important;
 }
 
 .btn-ghost {
@@ -1210,8 +1194,7 @@ footer .legal a:hover { color: var(--accent); }
   .price-new { font-size: clamp(28px, 7vw, 64px); }
   .cd-block { min-width: 44px; padding: 8px; }
   .cd-block .num { font-size: 18px; }
-  .btn { width: 100%; padding: 18px 20px; font-size: 14px; }
-  .btn-primary { width: 100%; padding: 18px 20px; font-size: 14px; }
+  .v3-page .btn-primary { width: 100% !important; padding: 18px 20px !important; font-size: 14px !important; }
   .benefit { padding: 28px 20px 32px; }
   .deliver { gap: 12px; }
   .deliver .num { font-size: clamp(28px, 7vw, 64px); }
@@ -1227,7 +1210,7 @@ footer .legal a:hover { color: var(--accent); }
   .countdown { flex-direction: column; gap: 12px; align-items: flex-start; }
   .final-card { padding: 24px 16px; }
   .product-visual { aspect-ratio: 1; }
-  .hero-cta .btn-primary { align-self: stretch; }
+  .v3-page .hero-cta .btn-primary { align-self: stretch !important; width: 100% !important; }
 }
 `,
         }}
