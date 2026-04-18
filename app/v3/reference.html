@@ -1,0 +1,1737 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sistema Fullbody — Protocolo Completo para Entrenadores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* ---------- Tokens ---------- */
+:root {
+  --ink: #0A0A0A;
+  --ink-2: #141414;
+  --ink-3: #1E1E1E;
+  --line: #2A2A2A;
+  --paper: #F5F3EE;
+  --paper-2: #E9E6DE;
+  --muted: #8C8A85;
+  --muted-dark: #6E6C66;
+
+  /* Accent (controlled by Tweaks) */
+  --accent: oklch(0.88 0.22 125);       /* lime default */
+  --accent-ink: #0A0A0A;                 /* text on accent */
+  --accent-dim: oklch(0.88 0.22 125 / 0.15);
+
+  /* Density */
+  --pad-section: clamp(72px, 9vw, 140px);
+  --gap: clamp(20px, 2.2vw, 32px);
+
+  --radius: 6px;
+  --radius-lg: 10px;
+
+  --ff-display: 'Archivo Black', 'Archivo', system-ui, sans-serif;
+  --ff-sans: 'Archivo', 'Inter', system-ui, sans-serif;
+  --ff-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+[data-accent="orange"] {
+  --accent: oklch(0.72 0.19 48);
+  --accent-ink: #0A0A0A;
+  --accent-dim: oklch(0.72 0.19 48 / 0.15);
+}
+
+[data-density="compact"] {
+  --pad-section: clamp(56px, 6vw, 96px);
+  --gap: 16px;
+}
+[data-density="airy"] {
+  --pad-section: clamp(96px, 12vw, 180px);
+  --gap: 36px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--ff-sans);
+  font-feature-settings: "ss01","cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.45;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* ---------- Layout ---------- */
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+section { padding: var(--pad-section) 0; position: relative; }
+
+.paper { background: var(--paper); color: var(--ink); }
+.dark { background: var(--ink); color: var(--paper); }
+
+/* ---------- Type ---------- */
+.eyebrow {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 28px; height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+.paper .eyebrow { color: var(--muted-dark); }
+
+h1, h2, h3, h4 { margin: 0; letter-spacing: -0.02em; }
+
+.display {
+  font-family: var(--ff-display);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+h2.section-title {
+  font-family: var(--ff-display);
+  font-size: clamp(40px, 5.4vw, 84px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  margin-top: 24px;
+}
+
+.lede {
+  font-size: clamp(18px, 1.6vw, 22px);
+  color: var(--muted);
+  max-width: 62ch;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.paper .lede { color: var(--muted-dark); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 28px;
+  font-family: var(--ff-sans);
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: var(--radius);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  line-height: 1;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent);
+}
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--paper);
+}
+.paper .btn-primary:hover {
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+.btn-primary .arrow { transition: transform .2s ease; }
+.btn-primary:hover .arrow { transform: translateX(4px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--paper);
+  border-color: var(--line);
+}
+.paper .btn-ghost { color: var(--ink); border-color: rgba(0,0,0,0.15); }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  border-bottom: 1px solid var(--line);
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 50;
+}
+.topbar .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.topbar .brand {
+  color: var(--paper);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+.topbar .brand .dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+.topbar .meta {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.topbar .meta span { display: inline-flex; align-items: center; gap: 8px; }
+.topbar .pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 var(--accent); }
+  70% { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+@media (max-width: 720px) {
+  .topbar .meta span:first-child { display: none; }
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  padding-top: clamp(48px, 6vw, 96px);
+  padding-bottom: clamp(48px, 6vw, 96px);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 50% at 85% 20%, var(--accent-dim), transparent 70%),
+    linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4));
+  pointer-events: none;
+}
+.hero .wrap { position: relative; z-index: 1; }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+.hero-badge .num { color: var(--accent); font-weight: 700; }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  margin-top: 36px;
+}
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; }
+}
+
+.hero h1 {
+  font-family: var(--ff-display);
+  font-size: clamp(48px, 7.4vw, 120px);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--paper);
+  text-wrap: balance;
+}
+.hero h1 .accent { color: var(--accent); font-style: italic; }
+.hero h1 .stroke {
+  -webkit-text-stroke: 2px var(--paper);
+  color: transparent;
+}
+
+.hero-sub {
+  margin-top: 28px;
+  font-size: clamp(18px, 1.55vw, 22px);
+  color: var(--muted);
+  max-width: 52ch;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+.hero-sub strong { color: var(--paper); font-weight: 700; }
+
+/* Price block */
+.price-card {
+  margin-top: 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  display: grid;
+  gap: 20px;
+}
+.price-row { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+.price-old {
+  font-family: var(--ff-mono);
+  font-size: 16px;
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+.price-new {
+  font-family: var(--ff-display);
+  font-size: clamp(36px, 4.6vw, 64px);
+  color: var(--paper);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.price-new em { color: var(--accent); font-style: normal; }
+.price-tag {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 4px;
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.hero-cta .btn { align-self: flex-start; font-size: 17px; padding: 22px 30px; }
+
+.trust-row {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.trust-row span { display: inline-flex; align-items: center; gap: 8px; }
+.trust-row .tick {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+/* Countdown */
+.countdown {
+  margin-top: 8px;
+  padding: 18px 20px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: rgba(255,255,255,0.02);
+}
+.countdown-label {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.countdown-blocks { display: flex; gap: 8px; align-items: center; }
+.cd-block {
+  background: var(--ink-3);
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  min-width: 54px;
+  text-align: center;
+  border-radius: 4px;
+  font-family: var(--ff-mono);
+  font-weight: 700;
+}
+.cd-block .num {
+  font-size: 22px;
+  color: var(--paper);
+  line-height: 1;
+  display: block;
+}
+.cd-block .unit {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+  display: block;
+}
+.cd-sep { color: var(--muted); font-family: var(--ff-mono); font-weight: 700; }
+
+/* Product visual */
+.product-visual {
+  position: relative;
+  aspect-ratio: 4/5;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background:
+    radial-gradient(70% 70% at 50% 30%, rgba(255,255,255,0.05), transparent 70%),
+    var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+.product-visual img {
+  max-width: 88%;
+  max-height: 88%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 40px 60px rgba(0,0,0,0.5));
+}
+.product-chip {
+  position: absolute;
+  z-index: 2;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--paper);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.product-chip.tl { top: 20px; left: 20px; }
+.product-chip.br { bottom: 20px; right: 20px; color: var(--accent); border-color: var(--accent); }
+.product-chip.tr { top: 20px; right: 20px; }
+.product-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+/* Marquee */
+.marquee {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+  padding: 22px 0;
+  background: var(--ink-2);
+}
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  white-space: nowrap;
+  animation: marquee 40s linear infinite;
+  width: max-content;
+  font-family: var(--ff-display);
+  font-size: clamp(22px, 2.4vw, 34px);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  align-items: center;
+}
+.marquee-track span { display: inline-flex; align-items: center; gap: 60px; }
+.marquee-track .dot {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+}
+.marquee-track .ghost { color: transparent; -webkit-text-stroke: 1.5px var(--muted); }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- Problem section ---------- */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  margin-top: 72px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .problem-grid { grid-template-columns: 1fr; }
+}
+.problem-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
+.problem-list li {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 0;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  font-size: clamp(17px, 1.4vw, 20px);
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.problem-list li:last-child { border-bottom: 1px solid rgba(0,0,0,0.1); }
+.problem-list .x {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--accent);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  font-weight: 900;
+  font-family: var(--ff-display);
+}
+.problem-list .n {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  color: var(--muted-dark);
+  letter-spacing: 0.12em;
+  margin-right: 8px;
+}
+
+.solution-callout {
+  margin-top: 48px;
+  padding: 36px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: 24px;
+}
+.solution-callout p {
+  margin: 0;
+  font-family: var(--ff-display);
+  font-size: clamp(22px, 2.2vw, 32px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.solution-callout p em { color: var(--accent); font-style: normal; }
+.solution-callout .cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+.solution-callout .cta-row .trust {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Benefits section (dark) ---------- */
+.benefits-head { max-width: 860px; }
+.benefits-grid {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+@media (max-width: 1000px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .benefits-grid { grid-template-columns: 1fr; } }
+
+.benefit {
+  padding: 36px 28px 40px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 20px;
+  align-content: start;
+  position: relative;
+  transition: background .2s ease;
+}
+.benefit:hover { background: var(--ink-2); }
+.benefit .idx {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+}
+.benefit .check {
+  width: 44px; height: 44px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 900;
+  font-family: var(--ff-display);
+  font-size: 22px;
+}
+.benefit h3 {
+  font-family: var(--ff-display);
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--paper);
+}
+.benefit p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ---------- Testimonials ---------- */
+.testi-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
+}
+@media (max-width: 860px) { .testi-head { grid-template-columns: 1fr; } }
+
+.testi-stat {
+  text-align: right;
+  border-left: 1px solid rgba(0,0,0,0.12);
+  padding-left: 32px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+@media (max-width: 860px) { .testi-stat { border-left: none; padding-left: 0; text-align: left; } }
+.testi-stat .big {
+  font-family: var(--ff-display);
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.testi-stat .big em { color: var(--ink); font-style: normal; background: var(--accent); padding: 0 8px; }
+.testi-stat .sub {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-dark);
+  margin-top: 12px;
+}
+
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 56px;
+}
+@media (max-width: 920px) { .testi-grid { grid-template-columns: 1fr; } }
+
+.testi {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 32px 28px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.testi:nth-child(2) { background: var(--accent); color: var(--accent-ink); }
+.testi:nth-child(2) .stars { color: var(--accent-ink); }
+.testi:nth-child(2) .testi-meta .avatar { background: var(--ink); color: var(--accent); }
+.testi:nth-child(2) .testi-meta small { color: var(--accent-ink); opacity: 0.7; }
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: var(--accent);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.testi blockquote {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.45;
+  font-weight: 500;
+  text-wrap: pretty;
+  flex: 1;
+}
+.testi-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.testi:nth-child(2) .testi-meta { border-top-color: rgba(0,0,0,0.15); }
+.testi-meta .avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--ff-display);
+  font-size: 16px;
+  font-weight: 900;
+}
+.testi-meta .meta-text { display: grid; gap: 2px; line-height: 1.2; }
+.testi-meta .name { font-weight: 700; font-size: 14px; }
+.testi-meta small { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+
+.testi-coda {
+  margin-top: 56px;
+  padding: 36px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius-lg);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: center;
+}
+@media (max-width: 720px) { .testi-coda { grid-template-columns: 1fr; } }
+.testi-coda .tag {
+  font-family: var(--ff-display);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+}
+.testi-coda .tag em { color: var(--accent); font-style: normal; }
+.testi-coda p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.5; max-width: 52ch; }
+
+/* ---------- Deliverables section (paper) ---------- */
+.deliver-head { max-width: 960px; }
+
+.deliver-list {
+  margin-top: 56px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+.deliver {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: clamp(20px, 3vw, 48px);
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  align-items: center;
+  transition: background .2s ease, padding .2s ease;
+}
+.deliver:hover { background: var(--paper-2); padding-left: 14px; padding-right: 14px; }
+.deliver .num {
+  font-family: var(--ff-display);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.deliver .body h3 {
+  font-family: var(--ff-display);
+  font-size: clamp(20px, 2vw, 28px);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.deliver .body p {
+  margin: 8px 0 0;
+  color: var(--muted-dark);
+  font-size: 15px;
+  line-height: 1.5;
+  max-width: 60ch;
+}
+.deliver .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.deliver .tag-free {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 8px;
+  background: var(--ink);
+  color: var(--accent);
+  border-radius: 3px;
+  font-weight: 700;
+}
+.deliver .tag-top {
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 8px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 3px;
+  font-weight: 700;
+}
+.deliver .price {
+  font-family: var(--ff-mono);
+  font-size: 13px;
+  color: var(--muted-dark);
+  text-align: right;
+  white-space: nowrap;
+}
+.deliver .price .old { text-decoration: line-through; display: block; }
+.deliver .price .new { color: var(--ink); font-weight: 700; display: block; margin-top: 4px; }
+@media (max-width: 720px) {
+  .deliver { grid-template-columns: 60px 1fr; }
+  .deliver .price { grid-column: 2; text-align: left; }
+}
+
+.deliver-totalizer {
+  margin-top: 40px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 720px) { .deliver-totalizer { grid-template-columns: 1fr; } }
+.deliver-totalizer > div {
+  padding: 36px;
+  display: grid;
+  gap: 8px;
+  align-content: center;
+}
+.deliver-totalizer .col-value { border-right: 1px solid var(--line); }
+@media (max-width: 720px) { .deliver-totalizer .col-value { border-right: none; border-bottom: 1px solid var(--line); } }
+.deliver-totalizer .col-today { background: var(--accent); color: var(--accent-ink); }
+.deliver-totalizer .label {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.deliver-totalizer .col-today .label { color: rgba(0,0,0,0.55); }
+.deliver-totalizer .value {
+  font-family: var(--ff-display);
+  font-size: clamp(36px, 4.4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.deliver-totalizer .cta-row {
+  padding: 28px 36px;
+  grid-column: 1 / -1;
+  background: var(--ink-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+}
+.deliver-totalizer .cta-row .count {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.deliver-totalizer .cta-row .count b { color: var(--accent); }
+
+/* ---------- Credibility (dark) ---------- */
+.cred-grid {
+  margin-top: 72px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+@media (max-width: 720px) { .cred-grid { grid-template-columns: 1fr; } }
+.cred-cell {
+  padding: 44px 36px;
+  display: grid;
+  gap: 12px;
+  align-content: center;
+  border-right: 1px solid var(--line);
+  position: relative;
+}
+.cred-cell:last-child { border-right: none; }
+@media (max-width: 720px) {
+  .cred-cell { border-right: none; border-bottom: 1px solid var(--line); }
+  .cred-cell:last-child { border-bottom: none; }
+}
+.cred-cell .num {
+  font-family: var(--ff-display);
+  font-size: clamp(56px, 7vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--paper);
+}
+.cred-cell:nth-child(2) .num { color: var(--accent); }
+.cred-cell .lbl {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  max-width: 24ch;
+}
+
+.cred-closer {
+  margin-top: 72px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 720px) { .cred-closer { grid-template-columns: 1fr; } }
+.cred-closer h3 {
+  font-family: var(--ff-display);
+  font-size: clamp(32px, 3.8vw, 56px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  max-width: 18ch;
+}
+.cred-closer p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.5; max-width: 52ch; }
+
+/* ---------- Guarantee ---------- */
+.guarantee {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(32px, 5vw, 72px);
+  margin-top: 48px;
+  align-items: center;
+}
+@media (max-width: 720px) { .guarantee { grid-template-columns: 1fr; } }
+.shield {
+  width: clamp(180px, 22vw, 280px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 36px;
+  position: relative;
+  font-family: var(--ff-display);
+  text-transform: uppercase;
+}
+.shield::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1.5px dashed var(--accent);
+  opacity: 0.6;
+  animation: spin 40s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.shield .big { font-size: clamp(56px, 7vw, 88px); line-height: 0.9; letter-spacing: -0.04em; }
+.shield .small { font-size: 14px; letter-spacing: 0.1em; margin-top: 4px; font-family: var(--ff-mono); font-weight: 700; }
+
+.guarantee-copy h2 { margin-bottom: 20px; }
+.guarantee-copy p {
+  color: var(--muted-dark);
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.55;
+  max-width: 58ch;
+  margin: 0 0 12px;
+}
+.guarantee-copy p strong { color: var(--ink); }
+
+/* ---------- FAQ ---------- */
+.faq-grid {
+  margin-top: 56px;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.faq {
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+  cursor: pointer;
+}
+.faq summary {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  font-family: var(--ff-display);
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq .plus {
+  width: 40px; height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 300;
+  transition: transform .25s ease, background .2s ease;
+  font-family: var(--ff-sans);
+}
+.faq[open] .plus { transform: rotate(45deg); background: var(--accent); color: var(--accent-ink); }
+.faq .answer {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 64ch;
+}
+
+/* ---------- Final offer ---------- */
+.final {
+  background: var(--ink);
+  color: var(--paper);
+  position: relative;
+  overflow: hidden;
+}
+.final::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(50% 60% at 50% 10%, var(--accent-dim), transparent 60%);
+  pointer-events: none;
+}
+.final .wrap { position: relative; z-index: 1; }
+
+.final-head { text-align: center; }
+.final-head h2 { margin-left: auto; margin-right: auto; max-width: 18ch; }
+
+.final-card {
+  margin-top: 56px;
+  background: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  display: grid;
+  gap: 32px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 560px) { .final-card { padding: 32px 24px; } }
+
+.final-price {
+  display: grid;
+  gap: 6px;
+  text-align: center;
+}
+.final-price .old {
+  font-family: var(--ff-mono);
+  font-size: 16px;
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+.final-price .new {
+  font-family: var(--ff-display);
+  font-size: clamp(56px, 8vw, 104px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+}
+.final-price .sub {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.final-cta { display: flex; justify-content: center; }
+.final-cta .btn { font-size: 18px; padding: 24px 40px; }
+
+.final-trust {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.final-trust span { display: inline-flex; align-items: center; gap: 8px; }
+.final-trust .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+.ps {
+  margin-top: 48px;
+  padding: 28px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.ps strong { color: var(--paper); font-weight: 700; }
+.ps em { color: var(--accent); font-style: normal; font-weight: 700; }
+
+/* ---------- Footer ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 48px 0 32px;
+  background: var(--ink);
+}
+footer .wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  align-items: center;
+}
+@media (max-width: 720px) { footer .wrap { grid-template-columns: 1fr; text-align: left; } }
+footer .brand {
+  font-family: var(--ff-display);
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: var(--paper);
+  text-transform: uppercase;
+}
+footer .brand .accent { color: var(--accent); }
+footer .tag {
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+footer .legal {
+  display: flex; gap: 20px;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+footer .legal a { color: var(--muted); text-decoration: none; }
+footer .legal a:hover { color: var(--accent); }
+
+/* ---------- Tweaks panel ---------- */
+#tweaks {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: none;
+  color: var(--paper);
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  min-width: 240px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+#tweaks.on { display: block; }
+#tweaks .title {
+  font-family: var(--ff-display);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+#tweaks .row { display: grid; gap: 6px; margin-bottom: 14px; }
+#tweaks .row:last-child { margin-bottom: 0; }
+#tweaks label { text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+#tweaks .seg {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+#tweaks .seg button {
+  background: transparent;
+  border: 0;
+  color: var(--paper);
+  padding: 8px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--ff-mono);
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+#tweaks .seg button.on { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+
+</style>
+</head>
+<body>
+
+<!-- ====================== TOP BAR ====================== -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>EDUCACIÓN FÍSICA DEL CERO</div>
+    <div class="meta">
+      <span>Sistema Fullbody · v2.0</span>
+      <span><span class="pulse"></span>Lanzamiento activo</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====================== HERO ====================== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-badge">
+      <span class="num">+40.000</span> entrenadores ya lo usan
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <h1>
+          ¿Tus alumnos<br>
+          <span class="accent">se van</span> antes<br>
+          de <span class="stroke">3 meses?</span>
+        </h1>
+
+        <p class="hero-sub">
+          El sistema que resuelve eso <strong>existe</strong>. Y cuesta menos que una <strong>hora de entrenamiento</strong>.
+        </p>
+
+        <div class="price-card">
+          <div class="price-row">
+            <span class="price-tag">Lanzamiento</span>
+            <span class="price-old">$79.000 COP</span>
+            <span class="price-new"><em>$39.000</em> COP</span>
+          </div>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="https://pay.kiwify.com/mELS0kd">
+              Quiero el Sistema · $39.000 COP
+              <span class="arrow">→</span>
+            </a>
+            <div class="trust-row">
+              <span><span class="tick">✓</span> Garantía 7 días</span>
+              <span><span class="tick">✓</span> Descarga inmediata</span>
+              <span><span class="tick">✓</span> Pago seguro</span>
+            </div>
+          </div>
+
+          <div class="countdown">
+            <div class="countdown-label">⏳ Precio de lanzamiento termina en</div>
+            <div class="countdown-blocks" id="cd">
+              <div class="cd-block"><span class="num" data-cd="h">00</span><span class="unit">horas</span></div>
+              <span class="cd-sep">:</span>
+              <div class="cd-block"><span class="num" data-cd="m">00</span><span class="unit">min</span></div>
+              <span class="cd-sep">:</span>
+              <div class="cd-block"><span class="num" data-cd="s">00</span><span class="unit">seg</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-visual">
+        <div class="product-chip tl"><span class="dot"></span>Sistema Fullbody</div>
+        <div class="product-chip tr">v.2026</div>
+        <img src="assets/mockup-produto.png" alt="Sistema Fullbody — Guía completa, plantillas, Kit del Entrenador y más">
+        <div class="product-chip br">6 piezas incluidas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== MARQUEE ====================== -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>FULLBODY<span class="dot"></span></span>
+    <span class="ghost">HIPERTROFIA</span>
+    <span>FUERZA<span class="dot"></span></span>
+    <span class="ghost">PÉRDIDA DE GRASA</span>
+    <span>RETENCIÓN<span class="dot"></span></span>
+    <span class="ghost">PERIODIZACIÓN</span>
+    <span>PRESCRIPCIÓN<span class="dot"></span></span>
+    <span class="ghost">EVALUACIÓN</span>
+    <!-- duplicate for seamless loop -->
+    <span>FULLBODY<span class="dot"></span></span>
+    <span class="ghost">HIPERTROFIA</span>
+    <span>FUERZA<span class="dot"></span></span>
+    <span class="ghost">PÉRDIDA DE GRASA</span>
+    <span>RETENCIÓN<span class="dot"></span></span>
+    <span class="ghost">PERIODIZACIÓN</span>
+    <span>PRESCRIPCIÓN<span class="dot"></span></span>
+    <span class="ghost">EVALUACIÓN</span>
+  </div>
+</div>
+
+<!-- ====================== PROBLEM ====================== -->
+<section class="paper">
+  <div class="wrap">
+    <span class="eyebrow">El Problema</span>
+    <div class="problem-grid">
+      <div>
+        <h2 class="section-title">El problema<br>real de los<br>entrenadores hoy</h2>
+        <p class="lede" style="margin-top:24px;">
+          Tus alumnos no se van por falta de motivación.<br>
+          <strong style="color:var(--ink);">Se van porque la monotonía gana siempre.</strong>
+        </p>
+      </div>
+      <ul class="problem-list">
+        <li><span class="x">✗</span><span><span class="n">01</span>Tus alumnos tienen agendas cada vez más apretadas</span></li>
+        <li><span class="x">✗</span><span><span class="n">02</span>No pueden ir al gimnasio 5 días a la semana</span></li>
+        <li><span class="x">✗</span><span><span class="n">03</span>La rutina A/B/C se vuelve monótona en 60 días</span></li>
+        <li><span class="x">✗</span><span><span class="n">04</span>Sin resultados rápidos, se van antes de los 3 meses</span></li>
+        <li><span class="x">✗</span><span><span class="n">05</span>Pierdes contratos que ya estaban cerrados</span></li>
+      </ul>
+    </div>
+
+    <div class="solution-callout">
+      <p>El <em>Sistema Fullbody</em> resuelve exactamente eso. Puedes empezar a aplicarlo con tu próximo alumno, <em>hoy</em>.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://pay.kiwify.com/mELS0kd">
+          Ver el Sistema Completo · $39.000 COP <span class="arrow">→</span>
+        </a>
+        <span class="trust">🛡️ Garantía 7 días · Descarga inmediata</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== BENEFITS ====================== -->
+<section class="dark">
+  <div class="wrap">
+    <div class="benefits-head">
+      <span class="eyebrow">Por qué funciona</span>
+      <h2 class="section-title">Alumnos que<br>se quedan. Resultados<br>que se ven. <span style="color:var(--accent);">Un solo sistema.</span></h2>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit">
+        <span class="idx">01 / 04</span>
+        <span class="check">✓</span>
+        <h3>Alumnos que<br>duran más<br>de 3 meses</h3>
+        <p>Rutinas que evolucionan semana a semana. Sin monotonía, sin perder el contrato.</p>
+      </div>
+      <div class="benefit">
+        <span class="idx">02 / 04</span>
+        <span class="check">✓</span>
+        <h3>Un sistema<br>para cualquier<br>alumno</h3>
+        <p>Del principiante al atleta avanzado. Una prescripción, múltiples adaptaciones. Menos tiempo preparando, más tiempo entrenando.</p>
+      </div>
+      <div class="benefit">
+        <span class="idx">03 / 04</span>
+        <span class="check">✓</span>
+        <h3>Hipertrofia, fuerza<br>y pérdida de grasa<br>en el mismo protocolo</h3>
+        <p>El Fullbody trabaja todos los objetivos en cada sesión. Base científica real, no intuición.</p>
+      </div>
+      <div class="benefit">
+        <span class="idx">04 / 04</span>
+        <span class="check">✓</span>
+        <h3>El método<br>que van a querer<br>seguir haciendo</h3>
+        <p>No es una rutina más. Es un sistema que se adapta y que ellos mismos piden repetir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== TESTIMONIALS ====================== -->
+<section class="paper">
+  <div class="wrap">
+    <span class="eyebrow">Lo que dicen en Brasil</span>
+    <div class="testi-head">
+      <div>
+        <h2 class="section-title">El método que<br>ya transformó<br>40.000 entrenadores.</h2>
+        <p class="lede" style="margin-top:24px;">
+          Validado en Brasil. Ahora disponible en español. Los primeros entrenadores colombianos ya están adoptándolo.
+        </p>
+      </div>
+      <div class="testi-stat">
+        <div class="big"><em>+40K</em></div>
+        <div class="sub">entrenadores validaron el sistema</div>
+      </div>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Cuánto amé este contenido. Material excelente, fácil de aprender, dinámico, simplemente increíble. Estoy encantada y agradecida por haber creado algo tan excepcional."</blockquote>
+        <div class="testi-meta">
+          <div class="avatar">A</div>
+          <div class="meta-text">
+            <span class="name">Personal Trainer</span>
+            <small>🇧🇷 Brasil</small>
+          </div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Muy bueno. Lo adquirí y me está ayudando muchísimo en el día a día con mis alumnos."</blockquote>
+        <div class="testi-meta">
+          <div class="avatar">S</div>
+          <div class="meta-text">
+            <span class="name">@santino_personal</span>
+            <small>🇧🇷 Brasil</small>
+          </div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <blockquote>"¡Excelente! Lo compré y lo recomiendo sin dudar. Vale cada peso."</blockquote>
+        <div class="testi-meta">
+          <div class="avatar">R</div>
+          <div class="meta-text">
+            <span class="name">@rodrigueseduardo2</span>
+            <small>🇧🇷 Brasil</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-coda">
+      <div class="tag"><em>Colombia</em> es el<br>siguiente.</div>
+      <p>Mientras tu competencia sigue con la misma rutina de siempre, tú puedes llegar primero con el sistema que ya demostró retener alumnos en el mercado más competitivo de Latinoamérica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== DELIVERABLES ====================== -->
+<section class="paper" style="border-top: 1px solid rgba(0,0,0,0.08);">
+  <div class="wrap">
+    <span class="eyebrow">Lo que recibes hoy</span>
+    <div class="deliver-head">
+      <h2 class="section-title">No es un curso que vas a ver.<br>Es un sistema que <span style="background:var(--accent); padding: 0 10px;">vas a usar.</span></h2>
+      <p class="lede" style="margin-top:24px;">Acceso inmediato tras la compra. Sin plataforma, sin contraseña.</p>
+    </div>
+
+    <div class="deliver-list">
+      <div class="deliver">
+        <div class="num">01</div>
+        <div class="body">
+          <h3>Guía Completa del Sistema Fullbody</h3>
+          <p>Todo lo que necesitas para prescribir Fullbody con base científica. Aplicable desde el primer día.</p>
+        </div>
+        <div class="price"><span class="new">INCLUIDO</span></div>
+      </div>
+      <div class="deliver">
+        <div class="num">02</div>
+        <div class="body">
+          <h3>Plantillas de Prescripción Editables</h3>
+          <p>Listos para entregar a tu alumno mañana. Google Sheets / Excel. Adapta en minutos.</p>
+          <div class="tags"><span class="tag-free">$15.000 COP → GRATIS</span></div>
+        </div>
+        <div class="price"><span class="old">$15.000</span><span class="new">GRATIS</span></div>
+      </div>
+      <div class="deliver">
+        <div class="num">03</div>
+        <div class="body">
+          <h3>Guía Científica de Hipertrofia</h3>
+          <p>Directrices actualizadas de la ciencia aplicadas a la práctica. Lenguaje directo, sin relleno.</p>
+          <div class="tags"><span class="tag-free">$10.000 COP → GRATIS</span></div>
+        </div>
+        <div class="price"><span class="old">$10.000</span><span class="new">GRATIS</span></div>
+      </div>
+      <div class="deliver">
+        <div class="num">04</div>
+        <div class="body">
+          <h3>Checklist de Evaluación del Alumno</h3>
+          <p>Evalúa a cada alumno antes de prescribir. Sin improvisación.</p>
+        </div>
+        <div class="price"><span class="new">INCLUIDO</span></div>
+      </div>
+      <div class="deliver">
+        <div class="num">05</div>
+        <div class="body">
+          <h3>Protocolo de Periodización Semana a Semana</h3>
+          <p>Meses de programación Fullbody sin repetir la misma rutina dos veces.</p>
+        </div>
+        <div class="price"><span class="new">INCLUIDO</span></div>
+      </div>
+      <div class="deliver">
+        <div class="num">06</div>
+        <div class="body">
+          <h3>Kit del Entrenador Profesional</h3>
+          <p>3 fichas que usas CADA SEMANA: evaluación inicial, seguimiento mensual y script de renovación para cuando el alumno quiere irse.</p>
+          <div class="tags"><span class="tag-top">Más valorado</span><span class="tag-free">$18.000 COP → GRATIS</span></div>
+        </div>
+        <div class="price"><span class="old">$18.000</span><span class="new">GRATIS</span></div>
+      </div>
+    </div>
+
+    <div class="deliver-totalizer">
+      <div class="col-value">
+        <span class="label">Valor Total</span>
+        <span class="value">$75.000 COP</span>
+      </div>
+      <div class="col-today">
+        <span class="label">Hoy solo</span>
+        <span class="value">$39.000 COP</span>
+      </div>
+      <div class="cta-row">
+        <span class="count"><b>+40.000</b> entrenadores ya lo tienen</span>
+        <a class="btn btn-primary" href="https://pay.kiwify.com/mELS0kd">Obtener el Sistema · $39.000 COP <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== CREDIBILITY ====================== -->
+<section class="dark">
+  <div class="wrap">
+    <span class="eyebrow">Credibilidad</span>
+    <h2 class="section-title" style="max-width: 18ch;">El método que ya formó<br>a más de <span style="color:var(--accent);">40.000+</span> entrenadores</h2>
+    <p class="lede" style="margin-top:24px;">Validado por más de 40.000+ entrenadores en Brasil. Ahora disponible para el mercado hispanohablante.</p>
+
+    <div class="cred-grid">
+      <div class="cred-cell">
+        <span class="num">40K+</span>
+        <span class="lbl">Entrenadores formados</span>
+      </div>
+      <div class="cred-cell">
+        <span class="num">BR</span>
+        <span class="lbl">Mercado de origen validado</span>
+      </div>
+      <div class="cred-cell">
+        <span class="num">7d</span>
+        <span class="lbl">Garantía total</span>
+      </div>
+    </div>
+
+    <div class="cred-closer">
+      <h3>Sé uno de los primeros entrenadores en Colombia con este sistema.</h3>
+      <p>El método ya transformó 40.000+ carreras en Brasil. Ahora llega al mercado hispanohablante, con precio de lanzamiento y garantía total de 7 días.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== GUARANTEE ====================== -->
+<section class="paper">
+  <div class="wrap">
+    <span class="eyebrow">Garantía Total</span>
+    <div class="guarantee">
+      <div class="shield">
+        <div>
+          <div class="big">7</div>
+          <div class="small">Días · Garantía</div>
+        </div>
+      </div>
+      <div class="guarantee-copy">
+        <h2 class="section-title">7 días de garantía.<br>Sin preguntas.</h2>
+        <p>Descarga el material, aplícalo con tu próximo alumno. Tienes 7 días para verificar que el Sistema Fullbody transforma cómo prescriben tus entrenamientos.</p>
+        <p>Si no es para ti, solicita el reembolso. <strong>Devolución completa, sin cuestionamientos.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FAQ ====================== -->
+<section class="dark">
+  <div class="wrap">
+    <span class="eyebrow">Preguntas Frecuentes</span>
+    <h2 class="section-title">Tus dudas,<br>respondidas</h2>
+
+    <div class="faq-grid">
+      <details class="faq">
+        <summary>¿Cómo recibo el material? <span class="plus">+</span></summary>
+        <div class="answer">Al confirmar tu compra, recibes acceso inmediato para descargar todos los archivos. Sin plataforma, sin contraseña. Directo al dispositivo.</div>
+      </details>
+      <details class="faq">
+        <summary>¿Necesito experiencia previa? <span class="plus">+</span></summary>
+        <div class="answer">No. El protocolo está diseñado para profesionales en cualquier etapa, desde recién graduados hasta entrenadores con años de experiencia.</div>
+      </details>
+      <details class="faq">
+        <summary>¿Y si no me funciona? <span class="plus">+</span></summary>
+        <div class="answer">Tienes 7 días de garantía total. Si no es para ti por cualquier razón, solicitas el reembolso y te devolvemos el 100% sin preguntas.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FINAL OFFER ====================== -->
+<section class="final">
+  <div class="wrap">
+    <div class="final-head">
+      <span class="eyebrow" style="color: var(--accent);">Oferta de Lanzamiento</span>
+      <h2 class="section-title">Empieza hoy.<br>Tu próximo alumno<br><span style="color: var(--accent);">no espera.</span></h2>
+      <p class="lede" style="margin: 24px auto 0;">Descarga el protocolo completo, las plantillas y el Kit del Entrenador — todo en minutos, directo en tu dispositivo.</p>
+    </div>
+
+    <div class="final-card">
+      <div class="countdown" style="background: rgba(0,0,0,0.2);">
+        <div class="countdown-label">⏳ Precio de lanzamiento termina en</div>
+        <div class="countdown-blocks">
+          <div class="cd-block"><span class="num" data-cd="h">00</span><span class="unit">horas</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block"><span class="num" data-cd="m">00</span><span class="unit">min</span></div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block"><span class="num" data-cd="s">00</span><span class="unit">seg</span></div>
+        </div>
+      </div>
+
+      <div class="final-price">
+        <span class="old">$79.000 COP</span>
+        <span class="new">$39.000 COP</span>
+        <span class="sub">~$9 USD · pago único · acceso de por vida</span>
+      </div>
+
+      <div class="final-cta">
+        <a class="btn btn-primary" href="https://pay.kiwify.com/mELS0kd">
+          Obtener el Sistema · $39.000 COP <span class="arrow">→</span>
+        </a>
+      </div>
+
+      <div class="final-trust">
+        <span>🛡️ Garantía 7 días</span>
+        <span><span class="dot"></span>Pago 100% seguro</span>
+        <span><span class="dot"></span>Descarga inmediata</span>
+        <span><span class="dot"></span>Kit del Entrenador incluido</span>
+        <span><span class="dot"></span>Acceso de por vida</span>
+      </div>
+    </div>
+
+    <div class="ps">
+      <strong>P.D.:</strong> Recuerda: el precio de lanzamiento es <em>$39.000 COP</em> y la garantía de 7 días significa <em>cero riesgo</em> para ti. Descarga en minutos, directo al dispositivo. Precio válido hasta <strong>21 de abril de 2026</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer>
+  <div class="wrap">
+    <div class="brand">EDUCACIÓN FÍSICA <span class="accent">DEL CERO</span></div>
+    <div class="tag">Sistema Fullbody · Protocolo Completo para Entrenadores · © 2026</div>
+    <div class="legal">
+      <a href="#">Privacidad</a>
+      <a href="#">Términos</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ====================== TWEAKS ====================== -->
+<div id="tweaks">
+  <div class="title">Tweaks</div>
+  <div class="row">
+    <label>Acento</label>
+    <div class="seg" data-group="accent">
+      <button data-val="lime" class="on">Lima</button>
+      <button data-val="orange">Naranja</button>
+    </div>
+  </div>
+  <div class="row">
+    <label>Densidad</label>
+    <div class="seg" data-group="density">
+      <button data-val="compact">Compacto</button>
+      <button data-val="normal" class="on">Normal</button>
+      <button data-val="airy">Aireado</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- Tweaks defaults (editable via host) ---------- */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "orange",
+  "density": "compact"
+}/*EDITMODE-END*/;
+
+function applyTweaks(t) {
+  const root = document.documentElement;
+  if (t.accent === "orange") root.setAttribute("data-accent", "orange");
+  else root.removeAttribute("data-accent");
+  if (t.density && t.density !== "normal") root.setAttribute("data-density", t.density);
+  else root.removeAttribute("data-density");
+  // sync UI
+  document.querySelectorAll('#tweaks .seg').forEach(seg => {
+    const group = seg.dataset.group;
+    seg.querySelectorAll('button').forEach(b => {
+      b.classList.toggle('on', b.dataset.val === t[group]);
+    });
+  });
+}
+const state = { ...TWEAK_DEFAULTS };
+applyTweaks(state);
+
+document.querySelectorAll('#tweaks .seg').forEach(seg => {
+  seg.addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const group = seg.dataset.group;
+    state[group] = btn.dataset.val;
+    applyTweaks(state);
+    try {
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [group]: btn.dataset.val } }, '*');
+    } catch(e) {}
+  });
+});
+
+/* ---------- Edit mode protocol ---------- */
+window.addEventListener('message', (ev) => {
+  const d = ev.data || {};
+  if (d.type === '__activate_edit_mode') document.getElementById('tweaks').classList.add('on');
+  if (d.type === '__deactivate_edit_mode') document.getElementById('tweaks').classList.remove('on');
+});
+try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch(e) {}
+
+/* ---------- Countdown (fake, resets daily) ---------- */
+(function(){
+  const target = new Date();
+  // End of today
+  target.setHours(23, 59, 59, 999);
+  function update() {
+    let diff = target - new Date();
+    if (diff < 0) diff = 0;
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.querySelectorAll('[data-cd="h"]').forEach(e => e.textContent = String(h).padStart(2, '0'));
+    document.querySelectorAll('[data-cd="m"]').forEach(e => e.textContent = String(m).padStart(2, '0'));
+    document.querySelectorAll('[data-cd="s"]').forEach(e => e.textContent = String(s).padStart(2, '0'));
+  }
+  update();
+  setInterval(update, 1000);
+})();
+</script>
+
+</body>
+</html>
