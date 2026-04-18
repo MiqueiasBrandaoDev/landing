@@ -7,7 +7,7 @@ export const ALUNOS = "40.000+"
 export const GARANTIA_DIAS = 7
 
 // Substituir pelo link real após criar produto no Kiwify
-export const KIWIFY_URL = "https://pay.kiwify.com/mELS0kd"
+export const KIWIFY_URL = "https://pay.kiwify.com/mELS0kd?region=co"
 
 // Data limite da oferta de lançamento (formato: "30 de mayo de 2026")
 export const OFERTA_VALIDA_ATE = "21 de abril de 2026"
